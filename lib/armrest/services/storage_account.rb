@@ -29,7 +29,6 @@ module Armrest::Services
         allow_blob_public_access: false
       }
       path = "subscriptions/#{subscription_id}/resourceGroups/#{group}/providers/Microsoft.Storage/storageAccounts/#{name}"
-      puts "StorageAccount#create attrs #{attrs}".color(:purple)
       resp = api.put(path, attrs)
     end
   end
