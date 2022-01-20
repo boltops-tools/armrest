@@ -45,7 +45,7 @@ Auth:
 
 The auth chain is: app -> msi -> cli
 
-    armrest auth chain
+    armrest auth
 
 You can disable MSI with `ARMREST_DISABLE_MSI=1`.
 
