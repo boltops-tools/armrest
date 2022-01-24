@@ -4,7 +4,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/armrest.svg)](https://badge.fury.io/rb/armrest)
 
-A very lightweight Azure library that works with the [Azure REST API](https://docs.microsoft.com/en-us/rest/api/azure/), it is not meant to be extensive.
+A very lightweight Azure library that works with the [Azure REST API](https://docs.microsoft.com/en-us/rest/api/azure/), it is not meant to be exhaustive.
 
 This was built because there doesn't seem to be a good library out there with the Azure features that [Terraspace](https://terraspace.cloud/) and [Terraspace Plugin Azurerm](https://github.com/boltops-tools/terraspace_plugin_azurerm) wanted to use:
 
