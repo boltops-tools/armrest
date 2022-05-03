@@ -8,7 +8,6 @@ module Armrest::Api
 
     def initialize(options={})
       @options = options
-      @camelize_request_data = true
     end
 
     HTTP_WRITE_METHODS = %w[post patch put delete]
@@ -64,7 +63,6 @@ module Armrest::Api
     end
 
     def build_request(klass, path, data={})
-      data = camelize(data)
       req = klass.new(path) # url includes query string and uri.path does not, must used url
       set_headers!(req)
 
@@ -81,11 +79,6 @@ module Armrest::Api
       end
 
       req
-    end
-
-    def camelize(data)
-      return data unless @camelize_request_data
-      data.deep_transform_keys { |k| k.to_s.camelize(:lower) }
     end
 
     def standarize_path(path)
