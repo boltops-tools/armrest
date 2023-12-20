@@ -19,7 +19,7 @@ module Armrest::Api::Auth
 
     def creds
       data = get_access_token
-      data.deep_transform_keys { |k| k.underscore } # to normalize the structure to the other classes
+      data.deep_transform_keys { |k| k.camelize(:lower) } # to normalize the structure to the other classes
     end
 
     # Looks like az account get-access-token caches the toke in ~/.azure/accessTokens.json

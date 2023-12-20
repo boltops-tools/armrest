@@ -21,7 +21,7 @@ module Armrest
 
     def creds
       data = get_access_token
-      data.deep_transform_keys { |k| k.underscore } # to normalize the structure to the other classes
+      data.deep_transform_keys { |k| k.camelize(:lower) } # to normalize the structure to the other classes
     end
 
   private
