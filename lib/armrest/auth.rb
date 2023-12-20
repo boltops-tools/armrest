@@ -1,3 +1,5 @@
+require "json"
+
 module Armrest
   class Auth
     include Armrest::Logging
@@ -15,6 +17,11 @@ module Armrest
         end
       end
       nil
+    end
+
+    def creds
+      data = get_access_token
+      data.deep_transform_keys { |k| k.underscore } # to normalize the structure to the other classes
     end
 
   private
@@ -41,8 +48,16 @@ module Armrest
     end
 
     def cli_credentials
-      return unless File.exist?("#{ENV['HOME']}/.azure/accessTokens.json")
       Armrest::Api::Auth::CLI.new(@options)
+    end
+
+    def get_access_token
+      command = "az account get-access-token -o json"
+      logger.debug "command: #{command}"
+      out = `#{command}`
+      JSON.load(out)
+    rescue
+      raise CliError, 'Error acquiring token from the Azure az CLI'
     end
   end
 end
