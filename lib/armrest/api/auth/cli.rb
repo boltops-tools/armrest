@@ -25,12 +25,14 @@ module Armrest::Api::Auth
     # Looks like az account get-access-token caches the toke in ~/.azure/accessTokens.json
     # and will update it only when it expires. So dont think we need to handle caching
     def get_access_token
-      command = "az account get-access-token -o json --resource #{resource}"
+      command = "az account get-access-token -o json"
       logger.debug "command: #{command}"
       out = `#{command}`
-      JSON.load(out)
-    rescue
-      raise CliError, 'Error acquiring token from the Azure az CLI'
+      if $?.success?
+        JSON.load(out)
+      else
+        raise CliError, 'Error acquiring token from the Azure az CLI'
+      end
     end
   end
 end
