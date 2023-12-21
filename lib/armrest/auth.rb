@@ -41,7 +41,6 @@ module Armrest
     end
 
     def cli_credentials
-      return unless File.exist?("#{ENV['HOME']}/.azure/accessTokens.json")
       Armrest::Api::Auth::CLI.new(@options)
     end
   end
