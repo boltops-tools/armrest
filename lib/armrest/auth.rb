@@ -55,9 +55,13 @@ module Armrest
       command = "az account get-access-token -o json"
       logger.debug "command: #{command}"
       out = `#{command}`
-      JSON.load(out)
+      if $?.success?
+        JSON.load(out)
+      else
+        raise CliError, "Error acquiring token from the Azure az CLI"
+      end
     rescue
-      raise CliError, 'Error acquiring token from the Azure az CLI'
+      raise JSON::ParserError, 'Error parsing token from the Azure az CLI'
     end
   end
 end
