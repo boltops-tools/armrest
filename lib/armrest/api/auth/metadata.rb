@@ -17,7 +17,7 @@ module Armrest::Api::Auth
       return @@available unless @@available.nil?
       url = "metadata/instance"
       resp = nil
-      with_open_timeout(0.5) do
+      with_open_timeout(1.5) do
         resp = get(url)
       end
       @@available = resp.code == "200"
