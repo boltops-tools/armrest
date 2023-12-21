@@ -31,7 +31,7 @@ resource_group.create_or_update(
 )
 ```
 
-Refer to the [boltops-tools/terraspace_plugin_azurer](https://github.com/boltops-tools/terraspace_plugin_azurerm) for more examples.
+Refer to the [boltops-tools/terraspace_plugin_azurerm](https://github.com/boltops-tools/terraspace_plugin_azurerm) for more examples.
 
 ## Usage: CLI
 
