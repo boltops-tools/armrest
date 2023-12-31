@@ -22,10 +22,12 @@ module Armrest::Api::Auth
       data.deep_transform_keys { |k| k.underscore } # to normalize the structure to the other classes
     end
 
-    # Looks like az account get-access-token caches the toke in ~/.azure/accessTokens.json
-    # and will update it only when it expires. So dont think we need to handle caching
+    # The az cli command itself has it's own caching. So dont think we need to handle caching
     def get_access_token
       command = "az account get-access-token -o json"
+      if resource.include?("vault.azure.net")
+        command += " --scope https://vault.azure.net/.default"
+      end
       logger.debug "command: #{command}"
       out = `#{command}`
       if $?.success?
