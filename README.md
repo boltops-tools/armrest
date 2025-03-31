@@ -35,38 +35,70 @@ Refer to the [boltops-tools/terraspace_plugin_azurerm](https://github.com/boltop
 
 ## Usage: CLI
 
-The main purpose of gem is to be a Ruby library that Terraspace can interact with.  The CLI interface was only built to help quickly test the code with live resources. It's essentially a way to QA.  Here are some examples:
+The main purpose of gem is to be a Ruby library that Terraspace can interact with. The CLI interface was only built to help quickly test the code with live resources. It's essentially a way to QA. Here are some examples:
 
 Auth:
 
+```shell
     armrest auth app
     armrest auth msi
     armrest auth cli
+    armrest auth oidc
+```
 
-The auth chain is: app -> msi -> cli
+The auth chain is: app -> msi -> cli -> oidc
 
-    armrest auth
+You can disable MSI with `ARMREST_DISABLE_MSI=1`, and you can also enable or disable OIDC explicitly using environment variables (`ARM_USE_OIDC` or `AZURE_USE_OIDC`).
 
-You can disable MSI with `ARMREST_DISABLE_MSI=1`.
+### OIDC Authentication
+
+The OIDC authentication provider allows you to authenticate using OpenID Connect tokens. This is particularly useful for environments like GitHub Actions or Azure DevOps pipelines.
+
+#### Configuration
+
+You can configure OIDC authentication using the following environment variables:
+
+* `ARM_OIDC_TOKEN` or `AZURE_OIDC_TOKEN`: Directly provide the OIDC token.
+* `ARM_OIDC_TOKEN_FILE_PATH` or `AZURE_OIDC_TOKEN_FILE_PATH`: Path to a file containing the OIDC token.
+* `ACTIONS_ID_TOKEN_REQUEST_URL` and `ACTIONS_ID_TOKEN_REQUEST_TOKEN`: GitHub Actions OIDC credentials.
+* `SYSTEM_OIDCREQUESTURI` and `SYSTEM_ACCESSTOKEN`: Azure DevOps OIDC credentials.
+
+#### Example
+
+To use OIDC authentication, set the required environment variables and run:
+
+```shell
+    armrest auth oidc
+```
+
+This will acquire an OIDC token and exchange it for an Azure access token.
 
 Resource Group:
 
+```shell
     armrest resource_group check_existence demo
+```
 
 Storage Account:
 
+```shell
     armrest storage_account create demofoobar123v3 --tags name:bob age:8
+```
 
 Blob Service:
 
+```shell
     armrest blob_service set_properties --storage-account demofoobar123 --delete-retention-policy days:9 enabled:true --container-delete-retention-policy days:10 enabled:true --is-versioning-enabled
+```
 
 Secret:
 
+```shell
     $ export ARMREST_VAULT=demo-dev-vault-test1
     $ armrest secret show demo-dev-pass
     secret1
     $
+```
 
 ## Installation
 
@@ -74,4 +106,6 @@ Add to your Gemfile
 
 Gemfile
 
+```shell
     gem "armrest"
+```

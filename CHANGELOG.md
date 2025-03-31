@@ -3,6 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project *loosely tries* to adhere to [Semantic Versioning](http://semver.org/), even before v1.0.
 
+## [0.2.3] - 2025-03-29
+- Add federated workload identity support via OIDC auth provider.
+
 ## [0.2.2] - 2023-12-31
 - [#8](https://github.com/boltops-tools/armrest/pull/8) cli auth scope for vault secrets
 
