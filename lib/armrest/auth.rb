@@ -33,9 +33,8 @@ module Armrest
 
     def app_credentials
       return unless ENV['ARM_CLIENT_ID'] || ENV['AZURE_CLIENT_ID']
-      login = Armrest::Api::Auth::Login.new(@options)
-      return unless login.respond_to?(:available?) && login.available?
-      login
+      return if ENV['ARM_USE_OIDC'] == 'true'
+      Armrest::Api::Auth::Login.new(@options)
     end
 
     def oidc_credentials
