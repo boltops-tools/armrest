@@ -12,18 +12,7 @@ module Armrest::Api::Auth
       when 'false' then return false
       when 'true'  then return true
       when nil
-        # Check for direct OIDC token
-        return true if ENV['ARM_OIDC_TOKEN'] || ENV['AZURE_OIDC_TOKEN']
-        return true if ENV['ARM_OIDC_TOKEN_FILE_PATH'] || ENV['AZURE_OIDC_TOKEN_FILE_PATH']
-
-        # Check for GitHub Actions OIDC credentials
-        return true if ENV['ACTIONS_ID_TOKEN_REQUEST_URL'] && ENV['ACTIONS_ID_TOKEN_REQUEST_TOKEN']
-        return true if ENV['ARM_OIDC_REQUEST_URL'] && ENV['ARM_OIDC_REQUEST_TOKEN']
-
-        # Check for Azure DevOps OIDC credentials
-        return true if ENV['SYSTEM_OIDCREQUESTURI'] && ENV['SYSTEM_ACCESSTOKEN']
-
-        false
+        return false
       else
         logger.warn "Unrecognized OIDC flag value: #{use_oidc}"
       end
