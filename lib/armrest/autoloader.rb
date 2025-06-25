@@ -9,7 +9,7 @@ module Armrest
       end
 
       def self.camelize_map
-        { cli: "CLI", msi: "MSI", version: "VERSION" }
+        { cli: "CLI", oidc: "OIDC", msi: "MSI", version: "VERSION" }
       end
     end
 

@@ -24,6 +24,7 @@ module Armrest
       else # full chain
         [
           :app_credentials,
+          :oidc_credentials,
           :msi_credentials,
           :cli_credentials,
         ]
@@ -32,7 +33,13 @@ module Armrest
 
     def app_credentials
       return unless ENV['ARM_CLIENT_ID'] || ENV['AZURE_CLIENT_ID']
+      return if ENV['ARM_USE_OIDC'] == 'true'
       Armrest::Api::Auth::Login.new(@options)
+    end
+
+    def oidc_credentials
+      return unless Armrest::Api::Auth::OIDC.configured?
+      Armrest::Api::Auth::OIDC.new(@options)
     end
 
     def msi_credentials

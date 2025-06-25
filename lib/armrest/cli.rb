@@ -23,7 +23,7 @@ module Armrest
     long_desc Help.text(:storage_account)
     subcommand "storage_account", StorageAccount
 
-    desc "auth [TYPE]", "Auth to Azure API. When type is not provided the full credentials chain is checked"
+    desc "auth [TYPE]", "Auth to Azure API. When TYPE is not provided, the full credentials chain is checked. Available TYPEs: app, msi, cli, oidc."
     long_desc Help.text(:auth)
     def auth(type=nil)
       Auth.new(options.merge(type: type)).run
