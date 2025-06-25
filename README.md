@@ -39,12 +39,10 @@ The main purpose of gem is to be a Ruby library that Terraspace can interact wit
 
 Auth:
 
-```shell
     armrest auth app
     armrest auth msi
     armrest auth cli
     armrest auth oidc
-```
 
 The auth chain is: app -> msi -> cli -> oidc
 
@@ -67,38 +65,28 @@ You can configure OIDC authentication using the following environment variables:
 
 To use OIDC authentication, set the required environment variables and run:
 
-```shell
     armrest auth oidc
-```
 
 This will acquire an OIDC token and exchange it for an Azure access token.
 
 Resource Group:
 
-```shell
     armrest resource_group check_existence demo
-```
 
 Storage Account:
 
-```shell
     armrest storage_account create demofoobar123v3 --tags name:bob age:8
-```
 
 Blob Service:
 
-```shell
     armrest blob_service set_properties --storage-account demofoobar123 --delete-retention-policy days:9 enabled:true --container-delete-retention-policy days:10 enabled:true --is-versioning-enabled
-```
 
 Secret:
 
-```shell
     $ export ARMREST_VAULT=demo-dev-vault-test1
     $ armrest secret show demo-dev-pass
     secret1
     $
-```
 
 ## Installation
 
@@ -106,6 +94,6 @@ Add to your Gemfile
 
 Gemfile
 
-```shell
-    gem "armrest"
+```ruby
+gem "armrest"
 ```

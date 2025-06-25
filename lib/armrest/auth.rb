@@ -2,7 +2,7 @@ module Armrest
   class Auth
     include Armrest::Logging
 
-    def initialize(options={})
+    def initialize(options = {})
       @options = options
     end
 
@@ -17,7 +17,8 @@ module Armrest
       nil
     end
 
-  private
+    private
+
     def providers
       if @options[:type]
         ["#{@options[:type]}_credentials"]
@@ -26,14 +27,14 @@ module Armrest
           :app_credentials,
           :oidc_credentials,
           :msi_credentials,
-          :cli_credentials,
+          :cli_credentials
         ]
       end
     end
 
     def app_credentials
-      return unless ENV['ARM_CLIENT_ID'] || ENV['AZURE_CLIENT_ID']
-      return if ENV['ARM_USE_OIDC'] == 'true'
+      return unless ENV["ARM_CLIENT_ID"] || ENV["AZURE_CLIENT_ID"]
+      return if %w[1 true yes].include?(ENV["ARM_USE_OIDC"])
       Armrest::Api::Auth::Login.new(@options)
     end
 
